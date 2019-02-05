@@ -3,8 +3,8 @@
 
     require './functions.php';
 
-    $errores;
-    $admin;
+    $errores = '';
+    $admin = '';
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $username = $_POST['username'];

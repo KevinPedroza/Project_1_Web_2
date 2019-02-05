@@ -5,9 +5,14 @@
     $id = $_POST['id'];
     $nick = $_POST['nick'];
     $mesa = $_POST['mesa'];
+    $sid;
 
-    sendMessage($id, $mesa, $nick);
-    foreach (readMessage($id) as $record) {
+    if (verificarService() != null){
+        $sid = leerService();
+    }
+
+    sendMessage($id, $mesa, $nick, $sid);
+    foreach (readMessage($id, $sid) as $record) {
         echo "<li class='left clearfix'>
         <div class='dis' style='display:flex;'>
             <span class='chat-img pull-left' style='font-size:40px;'>

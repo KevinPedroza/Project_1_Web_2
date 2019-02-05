@@ -2,7 +2,13 @@
     require './functions.php';
 
     $id = $_GET['id'];
-    $lista = readMessage($id);
+    $sid;
+
+    if (verificarService() != null){
+        $sid = leerService();
+    }
+
+    $lista = readMessage($id, $sid);
 
     foreach ($lista as $record) {
         echo " <li class='left clearfix'>

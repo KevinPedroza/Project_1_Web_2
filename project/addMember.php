@@ -3,10 +3,15 @@
 
     $id = $_POST['id'];
     $name = $_POST['name'];
+    $sid;
 
-    addMember($id, $name);
+    if (verificarService() != null){
+        $sid = leerService();
+    }
 
-    foreach (leerUsuarios($id) as $record) {
+    addMember($id, $name, $sid);
+
+    foreach (leerUsuarios($id, $sid) as $record) {
        print($record->identity) . "\n";
     }
 

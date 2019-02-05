@@ -2,7 +2,13 @@
     require 'functions.php';
 
     $id = $_POST['id'];
-    foreach (leerUsuarios($id) as $record) {
+    $sid;
+
+    if (verificarService() != null){
+        $sid = leerService();
+    }
+
+    foreach (leerUsuarios($id, $sid) as $record) {
         print($record->identity) . "\n";
     }
 ?>

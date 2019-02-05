@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="./css/index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>Chat - Kevin P.</title>
 </head>
@@ -23,7 +23,7 @@
             <div style="display:flex;">        
             <?php if(!empty($_SESSION)):?>
             <form action="cerrar.php" method="post">
-                <button type="submit" class="btn btn-lg btn-danger" data-toggle="modal" data-target="#exampleModal">Cerrar Sesión</button>
+                <button type="submit" class="btn btn-lg btn-danger">Cerrar Sesión</button>
             </form>
             <?php else:?>
                 <button type="button" class="btn btn-lg btn-primary" style="margin-right:2px;" data-toggle="modal" data-target="#exampleModal">Admin Login In</button>
@@ -62,7 +62,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach(leerCanales() as $record):?>
+                    <?php 
+                        $sid;
+
+                        if (verificarService() != null){
+                            $sid = leerService();
+                        }
+                    
+                    foreach(leerCanales($sid) as $record):?>
                         <tr>
                         <th scope="row"><?php print($record->friendlyName);?></th>
                         <th><a style="color:white;" href="borrarChannel.php?id=<?php print($record->sid);?>" class="btn btn-danger" title="Eliminar"><i class="fas fa-trash"></i></a>
@@ -81,7 +88,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach(leerCanales() as $record):?>
+                <?php 
+                    $sid;
+
+                    if (verificarService() != null){
+                        $sid = leerService();
+                    }
+                
+                foreach(leerCanales($sid) as $record):?>
                     <tr>
                     <th scope="row"><?php print($record->friendlyName);?></th>
                     <th scope="row"><button class="btn btn-primary" onclick="ajax('<?php print($record->sid);?>')" id="btnnick" data-toggle="modal" data-target="#exampleModal3 " title="Unirse al Canal <?php print($record->friendlyName);?>"><i class="fas fa-sign-in-alt"></i></button></th>
@@ -221,7 +235,7 @@
                     }).done(function( msg ) {   
                         document.getElementById('chat').innerHTML = msg;
                     }); 
-            }, 1500);
+            }, 2000);
         }
         function ajax(idcha){
 
@@ -236,7 +250,6 @@
                 addMember(idcha, nick);
                 readMessage(idcha);
                 if(contador > 0){
-                    clearInterval(inter);
                     sessionStorage.setItem("idcha", idcha);
                     sessionStorage.setItem("nick", nick);
                     window.location.reload(true);
@@ -275,7 +288,7 @@
             idcha = document.getElementById('sidcha').value;
             nick = document.getElementById('hidenick').value;
             message = document.getElementById('mesa').value;
-
+            readMessage(idcha);
             if(nick == ''){
                 alert("Escriba su NickName");
             } else if(message == '') {
@@ -286,8 +299,9 @@
                 url: "sendMessage.php",
                 data: { id: idcha, nick: nick, mesa: message}
                 }).done(function( msg ) {
-                    message = document.getElementById('mesa').value = '';
+
             });    
+            message = document.getElementById('mesa').value = '';
             }
         }   
 
