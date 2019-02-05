@@ -198,7 +198,31 @@
     <script>
 
         var contador = 0;
+        var inter;
+        function addMember(idcha, nick){
+            $.ajax({
+                    type: "POST",
+                    url: "addMember.php",
+                    data: { id: idcha, name: nick}
+                    }).done(function( msg ) {
+                        $("#tbody").html("");
+                        var newCell = document.getElementById('tbody');
+                        newCell.append(msg);
+                        nick = document.getElementById('nick').value = '';
+                }); 
+        }
 
+        function readMessage(idcha) {
+            inter = setInterval(function(){        
+                $.ajax({
+                type: "GET",
+                url: "leerMessage.php",
+                data: { id: idcha}
+                    }).done(function( msg ) {   
+                        document.getElementById('chat').innerHTML = msg;
+                    }); 
+            }, 1500);
+        }
         function ajax(idcha){
 
             document.getElementById('sidcha').value = idcha;
@@ -209,32 +233,29 @@
                 alert('Seleccione un Nombre!');
             }else {
                 document.getElementById('user').innerHTML = 'Usuario: ' + nick;
-                $.ajax({
-                    type: "POST",
-                    url: "addMember.php",
-                    data: { id: idcha, name: nick}
-                    }).done(function( msg ) {
-                        $("#tbody").html("");
-                        var newCell = document.getElementById('tbody');
-                        newCell.append(msg);
-                        nick = document.getElementById('nick').value = '';
-                }); 
-                var inter = setInterval(function(){        
-                    $.ajax({
-                    type: "GET",
-                    url: "leerMessage.php",
-                    data: { id: idcha}
-                        }).done(function( msg ) {   
-
-                                document.getElementById('chat').innerHTML = msg;
-                            /*var inter = setInterval(function(){ 
-                                document.getElementById('chat').innerHTML = msg;
-                            }, 1000); */ 
-
-                    }); 
-        
-                }, 1000);
+                addMember(idcha, nick);
+                readMessage(idcha);
+                if(contador > 0){
+                    clearInterval(inter);
+                    sessionStorage.setItem("idcha", idcha);
+                    sessionStorage.setItem("nick", nick);
+                    window.location.reload(true);
+                }
+                contador++;
             };  
+        }
+
+        if(sessionStorage.getItem("nick") != null){
+            window.onload = function() {
+                document.getElementById('nick').value = sessionStorage.getItem("nick");
+                document.getElementById('hidenick').value = sessionStorage.getItem("nick");
+                document.getElementById('user').innerHTML = 'Usuario: ' + sessionStorage.getItem("nick");
+                addMember(sessionStorage.getItem("idcha"), sessionStorage.getItem("nick"));
+                ajaxList(sessionStorage.getItem("idcha"));
+                readMessage(sessionStorage.getItem("idcha"));
+                sessionStorage.clear();
+                contador = 1;
+            }
         }
 
         function ajaxList(idcha){
