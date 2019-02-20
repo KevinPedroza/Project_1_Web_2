@@ -90,18 +90,22 @@
                 <tbody>
                 <?php 
                     $sid;
-
+                    
                     if (verificarService() != null){
                         $sid = leerService();
+                    }else{
+                        crearService();
+                        $sid = leerService();
                     }
-                
-                foreach(leerCanales($sid) as $record):?>
-                    <tr>
-                    <th scope="row"><?php print($record->friendlyName);?></th>
-                    <th scope="row"><button class="btn btn-primary" onclick="ajax('<?php print($record->sid);?>')" id="btnnick" data-toggle="modal" data-target="#exampleModal3 " title="Unirse al Canal <?php print($record->friendlyName);?>"><i class="fas fa-sign-in-alt"></i></button></th>
-                    <th scope="row"><button class="btn btn-success" onclick="ajaxList('<?php print($record->sid);?>')" id="btnnick2" data-toggle="modal" data-target="#exampleModal3 " title="Ver usuarios del Canal <?php print($record->friendlyName);?>"><i class="fas fa-address-book"></i></button></th>
-                    </tr>
-                <?endforeach;?>
+
+                    foreach(leerCanales($sid) as $record):?>
+                        <tr>
+                        <th scope="row"><?php print($record->friendlyName);?></th>
+                        <th scope="row"><button class="btn btn-primary" onclick="ajax('<?php print($record->sid);?>')" id="btnnick" data-toggle="modal" data-target="#exampleModal3 " title="Unirse al Canal <?php print($record->friendlyName);?>"><i class="fas fa-sign-in-alt"></i></button></th>
+                        <th scope="row"><button class="btn btn-success" onclick="ajaxList('<?php print($record->sid);?>')" id="btnnick2" data-toggle="modal" data-target="#exampleModal3 " title="Ver usuarios del Canal <?php print($record->friendlyName);?>"><i class="fas fa-address-book"></i></button></th>
+                        </tr>
+                    <?endforeach;?>
+
                 </tbody>
                 <?php endif;?>
             </table>
