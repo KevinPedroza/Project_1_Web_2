@@ -3,6 +3,7 @@
 
     use Twilio\Rest\Client;
 
+    //here we verify the service
     function verificarService(){
         $sid    = "AC2c1cb80c5696191553ddc5d5a69746e4";
         $token  = "1d8ac30d9b638b5123d740ac13a377c9";
@@ -12,6 +13,7 @@
         return $services;
     }
 
+    //here we reed the service
     function leerService() {
         $sid    = "AC2c1cb80c5696191553ddc5d5a69746e4";
         $token  = "1d8ac30d9b638b5123d740ac13a377c9";
@@ -23,6 +25,7 @@
         }
     }
 
+    //here we create a service
     function crearService(){
         $sid    = "AC2c1cb80c5696191553ddc5d5a69746e4";
         $token  = "1d8ac30d9b638b5123d740ac13a377c9";
@@ -31,6 +34,7 @@
         $service = $twilio->chat->v2->services->create("FRIENDLY_NAME");
     }
 
+    //here we reed channels
     function leerCanales($servicesid){
         $sid    = "AC2c1cb80c5696191553ddc5d5a69746e4";
         $token  = "1d8ac30d9b638b5123d740ac13a377c9";
@@ -40,6 +44,7 @@
         return $channels;
     }
 
+    //here we create a channel
     function crearCanal($nombre, $servicesid){
         try {
             $sid    = "AC2c1cb80c5696191553ddc5d5a69746e4";
@@ -52,6 +57,7 @@
         }
     }
 
+    //here we delete a channel
     function borrarCanal($id, $servicesid){
         $sid    = "AC2c1cb80c5696191553ddc5d5a69746e4";
         $token  = "1d8ac30d9b638b5123d740ac13a377c9";
@@ -60,6 +66,7 @@
         $twilio->chat->v2->services("$servicesid")->channels("$id")->delete();
     }
 
+    //here we delete a channel
     function editarCanal($id, $nombre, $servicesid){
         $sid    = "AC2c1cb80c5696191553ddc5d5a69746e4";
         $token  = "1d8ac30d9b638b5123d740ac13a377c9";
@@ -72,6 +79,7 @@
         );
     }
 
+    //here we reed users
     function leerUsuarios($id, $servicesid) {
         $sid    = "AC2c1cb80c5696191553ddc5d5a69746e4";
         $token  = "1d8ac30d9b638b5123d740ac13a377c9";
@@ -82,6 +90,7 @@
         return $members;
     }
 
+    //here we add a member
     function addMember($id, $name, $servicesid){
         try {
             $sid    = "AC2c1cb80c5696191553ddc5d5a69746e4";
@@ -94,6 +103,7 @@
         }
     }
 
+    //here we send a message
     function sendMessage($id, $message, $name, $servicesid) {
         $sid    = "AC2c1cb80c5696191553ddc5d5a69746e4";
         $token  = "1d8ac30d9b638b5123d740ac13a377c9";
@@ -103,6 +113,7 @@
 
     }
 
+    //here we reed messages
     function readMessage($id, $servicesid) {
         $sid    = "AC2c1cb80c5696191553ddc5d5a69746e4";
         $token  = "1d8ac30d9b638b5123d740ac13a377c9";

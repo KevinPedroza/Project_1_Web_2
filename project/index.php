@@ -1,11 +1,14 @@
 <?php
+    //here are starting the session 
     session_start();
 
+    //here is getting the functions from the file
     require './functions.php';
 
     $errores = '';
     $admin = '';
 
+    //here we are getting the varibles from the post
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $username = $_POST['username'];
         $pass = $_POST['pass'];
@@ -25,7 +28,7 @@
 
     }
 
-
+    //here we return the view
     require 'views/index.view.php';
 
 ?>

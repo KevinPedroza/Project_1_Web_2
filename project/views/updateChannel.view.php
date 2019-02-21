@@ -13,6 +13,7 @@
     <title>Chat - Kevin P.</title>
 </head>
 <body>
+    <!-- here got the header depending of the sessions -->
     <header>
         <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
             <a class="navbar-brand" href="#">
