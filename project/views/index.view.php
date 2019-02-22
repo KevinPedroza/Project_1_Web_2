@@ -76,7 +76,7 @@
                             <a class="btn btn-primary" href="editarChannel.php?id=<?php print($record->sid);?>&nombre=<?php print($record->friendlyName);?>" title="Editar"><i class="fas fa-edit"></i></a>
                         </th>
                         </tr>
-                    <?endforeach;?>
+                    <?php endforeach;?>
                 </tbody>
                 <?php else:?>
 
@@ -104,7 +104,7 @@
                         <th scope="row"><button class="btn btn-primary" onclick="ajax('<?php print($record->sid);?>')" id="btnnick" data-toggle="modal" data-target="#exampleModal3 " title="Unirse al Canal <?php print($record->friendlyName);?>"><i class="fas fa-sign-in-alt"></i></button></th>
                         <th scope="row"><button class="btn btn-success" onclick="ajaxList('<?php print($record->sid);?>')" id="btnnick2" data-toggle="modal" data-target="#exampleModal3 " title="Ver usuarios del Canal <?php print($record->friendlyName);?>"><i class="fas fa-address-book"></i></button></th>
                         </tr>
-                    <?endforeach;?>
+                    <?php endforeach;?>
 
                 </tbody>
                 <?php endif;?>
